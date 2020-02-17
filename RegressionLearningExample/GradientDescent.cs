@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace RegressionLearningExample
 {
@@ -22,7 +23,7 @@ namespace RegressionLearningExample
                 throw new ArgumentException("m is not correct");
             }
 
-            var resultThetas = new double[xs.Length + 1];
+            var resultThetas = new double[xs[0].Length + 1];
             bool isFirstRun = true;
             bool isMinus = false;
             bool isFinish = false;
@@ -57,14 +58,14 @@ namespace RegressionLearningExample
 
                     isFirstRun = false;
                 }
-                else if (isMinus && avgDifference[0] > 0 || !isMinus && avgDifference[0] < 0)
+                else if (isMinus && avgDifference.Average() >= -0.00000001 || !isMinus && avgDifference.Average() <= 0.00000001)
                 {
                     break;
                 }
 
                 resultThetas[0] = resultThetas[0] - alpha * avgDifference[0] / xs.Length;
 
-                for (int i = 0; i < xs.Length; i++)
+                for (int i = 0; i < xs[0].Length; i++)
                 {
                     resultThetas[i + 1] = resultThetas[i + 1] - alpha * avgDifference[i] / xs.Length;
                 }
