@@ -6,6 +6,6 @@ namespace RegressionLearningExample
 {
     public interface IActivationFunction
     {
-        double Calculate(double[] x, double[] theta);
+        decimal Calculate(decimal[] x, decimal[] theta);
     }
 }

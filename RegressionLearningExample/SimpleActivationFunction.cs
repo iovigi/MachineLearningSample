@@ -4,7 +4,7 @@
 
     public class SimpleActivationFunction : IActivationFunction
     {
-        public double Calculate(double[] xs, double[] thetas)
+        public decimal Calculate(decimal[] xs, decimal[] thetas)
         {
             if (thetas.Length != xs.Length + 1)
             {

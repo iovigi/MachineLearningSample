@@ -7,30 +7,33 @@ namespace RegressionLearningExample
 {
     public class GradientDescent
     {
-        private readonly IActivationFunction activationFunction;
-        private readonly double alpha;
+        private const decimal LIMIT = 0.00000000000000000000001m;
 
-        public GradientDescent(IActivationFunction activationFunction, double alpha)
+        private readonly IActivationFunction activationFunction;
+        private readonly decimal alpha;
+
+        public GradientDescent(IActivationFunction activationFunction, decimal alpha)
         {
             this.activationFunction = activationFunction;
             this.alpha = alpha;
         }
 
-        public double[] Train(double[][] xs, double[] ys)
+        public decimal[] Train(decimal[][] xs, decimal[] ys)
         {
             if (xs.Length != ys.Length)
             {
                 throw new ArgumentException("m is not correct");
             }
 
-            var resultThetas = new double[xs[0].Length + 1];
+            var resultThetas = new decimal[xs[0].Length + 1];
+
             bool isFirstRun = true;
             bool isMinus = false;
             bool isFinish = false;
 
             while (!isFinish)
             {
-                double[] avgDifference = new double[xs[0].Length + 1];
+                decimal[] avgDifference = new decimal[xs[0].Length + 1];
 
                 for (int i = 0; i < xs.Length; i++)
                 {
@@ -58,7 +61,7 @@ namespace RegressionLearningExample
 
                     isFirstRun = false;
                 }
-                else if (isMinus && avgDifference.Average() >= -0.00000001 || !isMinus && avgDifference.Average() <= 0.00000001)
+                else if (isMinus && avgDifference.Average() >= -LIMIT || !isMinus && avgDifference.Average() <= LIMIT)
                 {
                     break;
                 }
@@ -67,7 +70,7 @@ namespace RegressionLearningExample
 
                 for (int i = 0; i < xs[0].Length; i++)
                 {
-                    resultThetas[i + 1] = resultThetas[i + 1] - alpha * avgDifference[i] / xs.Length;
+                    resultThetas[i + 1] = resultThetas[i + 1] - alpha * avgDifference[i + 1] / xs.Length;
                 }
             }
 

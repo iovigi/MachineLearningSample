@@ -14,18 +14,19 @@
         private static void ExponentalGrowth()
         {
             IActivationFunction activationFunction = new SimpleActivationFunction();
-            double alpha = 0.5;
+            decimal alpha = 0.01m;
 
             GradientDescent gradientDescent = new GradientDescent(activationFunction, alpha);
 
-            double[][] rooms = new double[][] { new double[] { 1 },
-                new double[] { 2 }, new double[] { 3 }, new double[] { 4 }, new double[] { 5 } };
+            decimal[][] rooms = new decimal[][] {new decimal[] { 0 }, new decimal[] { 1 },
+                new decimal[] { 2 }, new decimal[] { 3 }, new decimal[] { 4 }, new decimal[] { 5 },
+                new decimal[] { 6 }, new decimal[] { 7 }, new decimal[] { 8 }, new decimal[] { 9 } };
 
-            double[] prices = new double[] { 100, 200, 300, 400, 500 };
+            decimal[] prices = new decimal[] { 0, 100, 200, 300, 400, 500, 600, 700, 800, 900 };
 
             var thehas = gradientDescent.Train(rooms, prices);
 
-            var sixRoomPrice = activationFunction.Calculate(new double[] { 6 }, thehas);
+            var sixRoomPrice = activationFunction.Calculate(new decimal[] { 6 }, thehas);
 
             Console.WriteLine(sixRoomPrice);
         }
